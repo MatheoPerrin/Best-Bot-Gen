@@ -54,6 +54,8 @@ const path = require('path');
 
 const { cleanInteraction, autoDelete } = require('./messageCleaner');
 
+const { showBanner } = require('./banner');
+
 const { footerText } = require('./config_bot');
 
 function getFooterText(interactionOrClient) {
@@ -934,6 +936,8 @@ if (fs.existsSync(statutPath)) {
   client.user.setPresence(presence);
 
   console.log('✅ Statut du bot restauré depuis statut.json');
+
+  await showBanner(client);
 
 }
 
