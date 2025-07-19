@@ -6,9 +6,7 @@ function setupAntiCrash(options = {}) {
 
     exitOnError = false,
 
-  } = options;
-
-  // Erreur fatale non catchée
+  } = options
 
   process.on('uncaughtException', (err) => {
 
@@ -38,8 +36,6 @@ function setupAntiCrash(options = {}) {
 
   });
 
-  // Promesse rejetée non catchée
-
   process.on('unhandledRejection', (reason, promise) => {
 
     console.error('[antiCrash] unhandledRejection :', reason);
@@ -68,8 +64,6 @@ function setupAntiCrash(options = {}) {
 
   });
 
-  // Signaux système (CTRL+C, kill, quit)
-
   ['SIGINT', 'SIGTERM', 'SIGQUIT'].forEach((signal) => {
 
     process.on(signal, () => {
@@ -92,8 +86,6 @@ function setupAntiCrash(options = {}) {
 
   });
 
-  // Avertissements Node.js (ex: dépréciation)
-
   process.on('warning', (warning) => {
 
     console.warn('[antiCrash] Warning Node.js :', warning.name);
@@ -103,8 +95,6 @@ function setupAntiCrash(options = {}) {
     console.warn(warning.stack);
 
   });
-
-  // Promesses résolues ou rejetées plusieurs fois (peut indiquer un bug)
 
   process.on('multipleResolves', (type, promise, reason) => {
 
@@ -116,15 +106,11 @@ function setupAntiCrash(options = {}) {
 
   });
 
-  // (optionnel) Avant la sortie (utile pour logs)
-
   process.on('beforeExit', (code) => {
 
     console.log('[antiCrash] beforeExit event, code:', code);
 
   });
-
-  // (optionnel) Après la sortie (dernier event)
 
   process.on('exit', (code) => {
 
