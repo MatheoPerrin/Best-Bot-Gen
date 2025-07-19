@@ -378,56 +378,20 @@ function simpleUUID() {
 
 }
 
-/*async function getDominantColorFromImageUrl(imageUrl) {
-  try {
-    const response = await axios.get(imageUrl, { responseType: 'arraybuffer' });
-    const inputBuffer = Buffer.from(response.data);
-
-    // Convertir en jpeg avec sharp
-    const jpegBuffer = await sharp(inputBuffer)
-      .jpeg()
-      .toBuffer();
-
-    // Pas besoin d’écrire sur disque, on peut utiliser from() avec un Buffer
-    const palette = await Vibrant.from(jpegBuffer).getPalette();
-
-    const hex = palette?.Vibrant?.hex
-             || palette?.DarkMuted?.hex
-             || palette?.Muted?.hex;
-
-    if (hex) {
-      console.log(`🎨 Couleur dominante extraite : ${hex}`);
-      return parseInt(hex.replace('#', ''), 16);
-    } else {
-      console.warn('⚠️ Aucune couleur trouvée dans la palette.');
-      return 0x2f3136;
-    }
-
-  } catch (err) {
-    console.error('❌ Erreur analyse couleur image :', err.message || err);
-    return 0x2f3136;
-  }
-}*/
-
 async function getDominantColorFromImageUrl(imageUrl) {
   try {
     const res = await axios.get(imageUrl, { responseType: 'arraybuffer' });
     const inputBuffer = Buffer.from(res.data, 'binary');
 
-    // Convertir toute image en .jpeg
     const jpegBuffer = await sharp(inputBuffer).jpeg().toBuffer();
 
-    // Créer un nom temporaire unique
     const tempName = `temp-${simpleUUID()}.jpg`;
     const tempPath = path.join(__dirname, tempName);
 
-    // Écrire dans le fichier temporaire
     fs.writeFileSync(tempPath, jpegBuffer);
 
-    // Extraire les couleurs
     const palette = await Vibrant.from(tempPath).getPalette();
 
-    // Supprimer le fichier temporaire après traitement
     fs.unlink(tempPath, err => {
       if (err) console.warn('⚠️ Fichier temporaire non supprimé :', err.message);
     });
@@ -452,8 +416,6 @@ async function getDominantColorFromImageUrl(imageUrl) {
 
 async function getServiceSelectEmbed(client, services, config) {
   let imageUrl = null;
-
-  // Choix de la bannière
   if (config.banner?.length) {
     imageUrl = config.banner;
   } else {
@@ -1233,10 +1195,9 @@ updateConfigKey('PANEL_CHANNEL_ID',interaction.channel.id);
     
   const embed = await getServiceSelectEmbed(client, services, config);
 
-  const allRows = []; // contiendra tous les rows (pour tous les messages à envoyer)
+  const allRows = [];
 
   if (config.modeAffichage === 1) {
-    // 🎯 Mode boutons
     const buttons = visibleServices.sort((a, b) => b.count - a.count).map(service =>
       new ButtonBuilder()
         .setCustomId(`gen-${service.id}`)
@@ -1251,7 +1212,6 @@ updateConfigKey('PANEL_CHANNEL_ID',interaction.channel.id);
     }
 
   } else if (config.modeAffichage === 2) {
-    // 🎯 Mode menu déroulant
     const MAX_OPTIONS_PER_MENU = 25;
     const options = visibleServices.sort((a, b) => b.count - a.count).map(service => ({
       label: service.label,
@@ -1273,7 +1233,6 @@ updateConfigKey('PANEL_CHANNEL_ID',interaction.channel.id);
     }
   }
 
-  // Ajouter le bouton 📦 Stock uniquement à la fin
   const stockRow = new ActionRowBuilder().addComponents(
     new ButtonBuilder()
       .setCustomId('stock')
@@ -1281,18 +1240,15 @@ updateConfigKey('PANEL_CHANNEL_ID',interaction.channel.id);
       .setStyle(ButtonStyle.Secondary)
   );
 
-  // Divise les rows en groupes de 5 max (Discord limit)
   const MAX_ROWS_PER_MESSAGE = 5;
   const rowGroups = [];
   for (let i = 0; i < allRows.length; i += MAX_ROWS_PER_MESSAGE) {
     rowGroups.push(allRows.slice(i, i + MAX_ROWS_PER_MESSAGE));
   }
 
-  // Ajouter le bouton stock dans le dernier groupe
   if (rowGroups.length > 0) {
     const lastGroup = rowGroups[rowGroups.length - 1];
     if (lastGroup.length >= MAX_ROWS_PER_MESSAGE) {
-      // On ne peut pas ajouter à la dernière si elle est pleine, créer une nouvelle ligne
       rowGroups.push([stockRow]);
     } else {
       lastGroup.push(stockRow);
@@ -1385,26 +1341,6 @@ const stockStatuses = sortedServices.map(service => {
   return null;
 }).filter(Boolean).join('\n');
 
-  /*const stockStatuses = services.map(service => {
-    let count = 0;
-    if (fs.existsSync(service.file)) {
-      count = fs.readFileSync(service.file, 'utf8')
-        .split('\n')
-        .filter(line => line.trim()).length;
-    }
-
-    if (count > 0) {
-      availableServices++;
-      let statusEmoji = '🟢';
-      if (count < 1) statusEmoji = '🔴';
-      else if (count <= 15) statusEmoji = '🟡';
-
-      return `__**${service.emoji} ${service.label}**__\n➔ \`${count} comptes ${statusEmoji}\``;
-    }
-
-    return null;
-  }).filter(Boolean).join('\n');*/
-
   const footerText = `__Services disponibles:__ **${availableServices}/${totalServices}**`;
   const ratio = availableServices / totalServices;
 
@@ -1432,10 +1368,8 @@ const stockStatuses = sortedServices.map(service => {
 }
 
 client.on('interactionCreate', async interaction => {
-  //const member = interaction.member;
   const guild = await interaction.client.guilds.fetch(interaction.guildId);
   const member = await guild.members.fetch(interaction.user.id);
-  //const guild = interaction.guild; 
     
   const cooldowns = readCooldowns();
     
@@ -1443,7 +1377,6 @@ client.on('interactionCreate', async interaction => {
   if (currentConfig && currentConfig !== '') {
   config = currentConfig;
       }
-  //console.log(config);
     
     if (interaction.isAutocomplete()) {
 
@@ -1453,7 +1386,7 @@ client.on('interactionCreate', async interaction => {
 
     .filter(s => s.label.toLowerCase().includes(focused))
 
-    .slice(0, 25); // Discord autorise max 25 résultats
+    .slice(0, 25);
 
   await interaction.respond(
 
@@ -1467,8 +1400,7 @@ client.on('interactionCreate', async interaction => {
 
   );
 
-  return; // très important pour ne pas continuer l'exécution plus loin
-
+  return;
 }
 
   // --- COMMANDES SLASH ---
@@ -1488,9 +1420,6 @@ if (interaction.commandName === 'panel') {
     }
   }
   await sendPanel(interaction)
-    
-  //const msg = await interaction.fetchReply();
-  //await msg.delete();
     
   await interaction.followUp({content:"✅️ panel envoyer avec **succès**", ephemeral:true });
   return
@@ -1615,17 +1544,13 @@ if (typeimage === 'emoji') {
 } else if (typeimage === 'image') {
   let emojiName = id.replace(/[^a-z0-9_]/gi, '_').toLowerCase();
 
-  // Vérifie si un emoji avec ce nom existe déjà sur le serveur
-
   const existingEmoji = interaction.guild.emojis.cache.find(e => e.name === emojiName);
 
 if (existingEmoji) {
 
-  // Emoji déjà présent : on le réutilise
-
   emoji = `<:${existingEmoji.name}:${existingEmoji.id}>`;
 
-  image = valeur; // on garde le lien ou l'historique d'image
+  image = valeur;
 
  } else {
   try {
@@ -1655,8 +1580,7 @@ if (existingEmoji) {
       
     fetchReply: true,
 
-    ephemeral: true // ⚠️ doit être false pour pouvoir capter les messages dans le canal
-
+    ephemeral: true
   });
 
   const filter = m => m.author.id === interaction.user.id;
@@ -1678,8 +1602,6 @@ if (existingEmoji) {
     const userMessage = collected.first();
 
     const userEmoji = userMessage.content.trim();
-
-    // On vérifie que c’est un emoji simple
 
     const emojiRegex = /^(\p{Emoji}|\p{Extended_Pictographic})+$/u;
 
@@ -1726,8 +1648,7 @@ if (existingEmoji) {
 
   image,
 
-  style: styleString, // stocker le nom, pas le ButtonStyle directement
-
+  style: styleString,
   file
 
 };
@@ -1753,7 +1674,6 @@ if (existingEmoji) {
         
   await registerCommands(services, lac, interaction.guildId);
 
-  //await interaction.reply({ content: `✅ Service **${label}** créé avec succès avec l’emoji ${emoji}`, ephemeral: true });
   await rps({
 
   content: `✅ Service **${label}** créé avec succès avec l’emoji ${emoji}`,
@@ -1817,17 +1737,14 @@ let oldFilePath = service.file;
   const oldFilePath = path.join(stockFolder, oldFileName);
   const newFilePath = path.join(stockFolder, newFileName);
 
-  // Vérifie qu’un autre service n’utilise pas déjà ce nom
   if (services.some(s => s.id === newId && s.id !== oldId)) {
     return interaction.reply({ content: `❌ Un autre service porte déjà ce nom.`, ephemeral: true });
   }
 
   try {
-    // ✅ Renomme le fichier s’il existe
     if (fs.existsSync(oldFilePath)) {
       fs.renameSync(oldFilePath, newFilePath);
     } else {
-      // Ou crée un nouveau fichier vide si aucun ancien fichier trouvé
       fs.writeFileSync(newFilePath, '', 'utf8');
     }
   } catch (err) {
@@ -1835,23 +1752,15 @@ let oldFilePath = service.file;
     return interaction.reply({ content: `❌ Impossible de renommer le fichier .txt du service.`, ephemeral: true });
   }
 
-  // 🧼 Mise à jour de l'objet service
   service.label = nouveauLabel;
   service.id = newId;
   service.file = path.posix.join('stock', newFileName); // chemin POSIX pour .json
 }
 
-  // === LABEL ===
-  //if (nouveauLabel) {
-    //service.label = nouveauLabel;
-  //}
-
-  // === STYLE ===
   if (styleString) {
     service.style = styleString;
   }
 
-  // === TYPE IMAGE / VALEUR ===
   if (typeimage && valeur) {
     let emoji = '';
     let image = '';
@@ -1889,7 +1798,6 @@ let oldFilePath = service.file;
 
     const isSameImage = service.image === valeur;
 
-    // 🧹 Supprimer l'ancien emoji si le nom est le même mais image différente
     if (existingEmoji && !isSameImage) {
       try {
         await existingEmoji.delete();
@@ -1898,7 +1806,6 @@ let oldFilePath = service.file;
       }
     }
 
-    // (Re)créer l'emoji
     const newEmoji = await interaction.guild.emojis.create({ attachment: imageBuffer, name: emojiName });
 
     emoji = `<:${newEmoji.name}:${newEmoji.id}>`;
@@ -1951,8 +1858,6 @@ let oldFilePath = service.file;
       
 }
 
-      
-  // === Mise à jour du JSON ===
   try {
     fs.writeFileSync(
       path.join(__dirname, 'boutons.json'),
@@ -2008,7 +1913,6 @@ let oldFilePath = service.file;
         
    await cleanupUnusedEmojisSmart(client, services)
 
-  //return interaction.reply({ content: `✅ Service \`${id}\` modifié avec succès.`, ephemeral: true });
 }
       
 if (interaction.commandName === 'delete') {
@@ -2038,7 +1942,6 @@ try {
       emoji: s.emoji,
       image: s.image,
       style: s.style,
-      //position: s.position,
       file: s.file
     })), null, 2)
   );
@@ -2122,12 +2025,10 @@ try {
   const stockFilePath = path.join(stockFolder, `${service.id}.txt`);
   let newAccounts = [];
 
-  // ✏️ 1. Comptes en texte brut
   if (comptesTexte) {
     newAccounts = comptesTexte.split('\n').map(line => line.trim()).filter(line => line);
   }
 
-  // 📎 2. Comptes via fichier .txt
   if (fichier && fichier.name.endsWith('.txt')) {
     try {
       const response = await fetch(fichier.url);
@@ -2142,22 +2043,8 @@ try {
   if (newAccounts.length === 0) {
     return interaction.reply({ content: '❌ Aucun compte valide à ajouter.', ephemeral: true });
   }
-
-  // 📦 Lecture du fichier de stock existant
-  /*let existingAccounts = [];
-  if (fs.existsSync(stockFilePath)) {
-    existingAccounts = fs.readFileSync(stockFilePath, 'utf8')
-      .split('\n')
-      .map(line => line.trim())
-      .filter(line => line);
-  }
-
-  const allAccounts = existingAccounts.concat(newAccounts);
-  fs.writeFileSync(stockFilePath, allAccounts.join('\n'));*/
      
      try {
-
-    // Lecture des comptes existants
     let existingAccounts = [];
     if (fs.existsSync(stockFilePath)) {
       existingAccounts = fs.readFileSync(stockFilePath, 'utf8')
@@ -2166,28 +2053,23 @@ try {
         .filter(line => line);
     }
 
-    // On prépare la liste fusionnée
     const allAccounts = existingAccounts.concat(newAccounts).filter((v, i, a) => a.indexOf(v) === i); // uniq
 
     if (allAccounts.length === 0) {
       console.log('⚠️ Aucun compte à écrire, on ne modifie pas le fichier.');
-      return; // ne rien faire si vide
+      return;
     }
 
-    // Création d'une sauvegarde temporaire avant écriture
     const backupPath = stockFilePath + '.bak';
     fs.copyFileSync(stockFilePath, backupPath);
 
-    // Écriture dans le fichier (écrase)
     fs.writeFileSync(stockFilePath, allAccounts.join('\n'), 'utf8');
 
-    // Suppression de la sauvegarde si tout est OK
     fs.unlinkSync(backupPath);
 
     console.log(`✅ Fichier mis à jour avec ${newAccounts.length} nouveaux comptes.`);
   } catch (err) {
     console.error('❌ Erreur lors de la mise à jour du fichier :', err.message);
-    // Si erreur, restaurer la sauvegarde
     if (fs.existsSync(stockFilePath + '.bak')) {
       fs.copyFileSync(stockFilePath + '.bak', stockFilePath);
       fs.unlinkSync(stockFilePath + '.bak');
@@ -2197,34 +2079,9 @@ try {
      
    await interaction.reply({ content: '⏳ Veuillez patienter...', ephemeral: true });
 
-  // 🛰️ Log dans le salon stock
   const stockChannel = await client.channels.fetch(STOCK_CHANNEL_ID);
-  /*if (stockChannel && stockChannel.isTextBased()) {
-    const embed = new EmbedBuilder()
-      .setTitle('📥 Restock')
-      .setColor(0x000000)
-      .setImage(service.image || null)
-      .setDescription(`✅ **${newAccounts.length}** comptes **${service.label}** ajoutés.`)
-      .setFooter({ text: 'Leak by discord.gg/mastergen-x' });
-
-    await stockChannel.send({ embeds: [embed] });
-  }*/
-
-  // 🔄 Recharge les services depuis boutons.json
      
 try {
-
-  /*const hasStockButton = interaction.message?.components?.some(row =>
-
-    row.components?.some(component => component.customId === 'stock')
-
-  );
-
-  if (hasStockButton && interaction.message.deletable) {
-
-    await interaction.message.delete();
-
-  }*/
     
   await deleteOldPanelMessages();
     
@@ -2236,8 +2093,7 @@ try {
   console.warn('❌ Impossible de supprimer ou réafficher le panel :', e.message);
 
 }     
-     
-// 📊 Rechargement des services (après sauvegarde JSON)
+
 try {
   const raw = fs.readFileSync(path.join(__dirname, 'boutons.json'), 'utf8');
   services = JSON.parse(raw).map(s => ({
@@ -2254,9 +2110,6 @@ if (!updatedService) {
 }
 
 const meta = await fetchServiceMetaFromWiki(updatedService.label);
-/*const embedColor = meta?.image
-  ? await getDominantColorFromImageUrl(meta.image)
-  : 0x2f3136;*/
 const embedColor = styleColor[updatedService.style];
 const embed = new EmbedBuilder()
   .setTitle(`📥 Restock (${updatedService.label})`)
@@ -2328,21 +2181,19 @@ if (interaction.commandName === 'unstock') {
     content: `✅ Le stock du service **${service.label}** a été vidé.`,
     ephemeral: true
   });
-
-  // ✅ Log public dans le salon STOCK_CHANNEL_ID
+    
   const stockChannel = await client.channels.fetch(STOCK_CHANNEL_ID);
 
   const embed = new EmbedBuilder()
     .setTitle(`🗑️ Unstock (${service.label})`)
     .setDescription(`Le stock du service **${service.label}** a été vidé.`)
-    .setColor(0xed4245) // couleur rouge
+    .setColor(0xed4245)
     .setThumbnail(service.image || null)
     .setFooter({ text: getFooterText(interaction) })
     .setTimestamp();
 
   await stockChannel.send({ embeds: [embed] });
 
-    // 🔄 Supprimer l'ancien panel et le régénérer
     await deleteOldPanelMessages();
     pax = 1;
     await sendPanel(interaction);
@@ -2358,10 +2209,6 @@ if (interaction.commandName === 'unstock') {
   // --- BOUTONS ---
 
   if (interaction.isButton()) {
-
-    // Check role before processing button
-
-    if (!(await checkUserRole(interaction))) return;
       
 if (interaction.customId === 'stock') {
 
@@ -2379,7 +2226,9 @@ return interaction.reply({
 
 }); } else if (interaction.customId.startsWith('gen-')) {
 
-  let serviceId = interaction.customId.slice(4); // ex: netflix-vip
+  if (!(await checkUserRole(interaction))) return;
+
+  let serviceId = interaction.customId.slice(4);
 
   const isVipService = serviceId.endsWith('-vip');
 
@@ -2395,23 +2244,16 @@ return interaction.reply({
 
   }
 
-  // Enlève le suffixe -vip après vérif
-
   if (isVipService) {
-
     serviceId = serviceId.replace(/-vip$/, '');
-
   }
 
   const service = services.find(s => s.id === serviceId);
 
   if (!service) {
-
     return interaction.reply({ content: '❌ Service introuvable.', ephemeral: true });
-
   }
 
-    // Cooldown check
 
     const userId = interaction.user.id;
     
@@ -2456,26 +2298,11 @@ if (now < expirationTime) {
 }
 
     } else if (accounts.length === 0) {
-
-      //cooldowns.delete(userId);
-
       return interaction.reply({ content: `❌️ Aucun compte disponible pour **${service.label}**.`, ephemeral: true });
-
        }
     await interaction.reply({ content: '⏳ Veuillez patienter...', ephemeral: true });
     const now = Date.now();
     cooldown.set(userId, now);
-
-    // Trouver le service correspondant au bouton
-
-    /*const service = services.find(s => s.id === interaction.customId);
-
-    if (!service) {
-
-      return interaction.reply({ content: 'Service inconnu.', ephemeral: true });
-
-    }*/
-
     
     const lastAccount = accounts.pop();
 
@@ -2528,11 +2355,9 @@ const embed = new EmbedBuilder()
   .setThumbnail(service.image || null)
   .setFooter({ text: getFooterText(interaction) });
 
-// 🔍 URL du service (automatique via DuckDuckGo)
 const url = await findServiceUrl(service.label);
 const remainingStock = accounts.length;
 
-// 🎛️ Ligne de boutons
 const row1 = new ActionRowBuilder().addComponents(
 
   new ButtonBuilder()
@@ -2767,7 +2592,6 @@ if (key === 'banner') {
 if (key === 'modeAffichage') {
   optio = '🧩 Type de menu (1=Boutons, 2=Menu Déroulant)';
   maxLength = 1;
-    //+= Rajouter | = Définir
 }
 if (key === 'filtrageStock') {
   optio = '⚙️ Masquer service vide (1=Oui,2=Non)';
@@ -2792,7 +2616,6 @@ const modal = new ModalBuilder()
   await interaction.showModal(modal);
 }
 
-// 🎯 Sélectionner un rôle à modifier (via select menu)
   if (interaction.customId === 'cooldown-modify') {
 
   const selected = interaction.values[0];
@@ -2817,7 +2640,6 @@ const modal = new ModalBuilder()
 
 }
 
-  // 🎯 Supprimer un rôle sélectionné (via select menu)
   if (interaction.customId === 'cooldown-remove-select') {
     const roleId = interaction.values[0].replace('remove-', '');
     delete cooldowns[roleId];
@@ -2956,10 +2778,8 @@ if (interaction.customId === 'modal-bot-banner') {
 if (interaction.customId.startsWith('modal-jsonc-')) {
   const key = interaction.customId.replace('modal-jsonc-', '');
   let newValue = interaction.fields.getTextInputValue('new-value');
-  //let final_var = newValue;
   let final_var = beautifyValue(key, newValue, client, guild);
 
-  // 🔢 1. Cas spécifiques : modeAffichage / filtrageStock
   if (['filtrageStock', 'modeAffichage'].includes(key)) {
     if (!['1', '2'].includes(newValue)) {
       return interaction.reply({
@@ -2969,27 +2789,7 @@ if (interaction.customId.startsWith('modal-jsonc-')) {
     }
     newValue = parseInt(newValue);
 
-/*if (key === 'modeAffichage') {
-
-  final_var = String(newValue)
-
-    .replace('1', 'Bouton')
-
-    .replace('2', 'Menu Déroulant');
-
-} else if (key === 'filtrageStock') {
-
-  final_var = String(newValue)
-
-    .replace('1', 'Oui')
-
-    .replace('2', 'Non');
-
-}*/
-  }
-
-  // 🧪 2. Clés avec "ID"
-  else if (key.includes('ID')) {
+  } else if (key.includes('ID')) {
   const isValidDiscordID = /^\d{17,20}$/.test(String(newValue));
   if (!isValidDiscordID) {
     return interaction.reply({
@@ -3014,7 +2814,6 @@ if (interaction.customId.startsWith('modal-jsonc-')) {
   }
 }
 
-  // ✅ Mise à jour si tout est bon
   await updateConfigKey(key, newValue);
     
   config = currentConfig;
@@ -3045,8 +2844,6 @@ if (interaction.customId.startsWith('modal-jsonc-')) {
  }
  return
 }
-    
-// Modal pour ➕ Ajouter un rôle cooldown
 
   if (interaction.customId === 'modal-cooldown-add') {
 
@@ -3091,8 +2888,6 @@ if (interaction.customId.startsWith('modal-jsonc-')) {
     });
 
   }
-
-  // Modal pour ✏️ Modifier un rôle cooldown
 
   if (interaction.customId.startsWith('modal-cooldown-edit-')) {
 
