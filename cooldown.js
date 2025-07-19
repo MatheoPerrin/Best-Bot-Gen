@@ -30,7 +30,6 @@ if (!cooldownEntries.length) {
   cooldownEntries.forEach(([roleId, minutes]) => {
 
     const role = guild.roles.cache.get(roleId);
-    //const label = role ? role.name : `Rôle inconnu (${roleId})`;
     const roleName = role ? formatRoleLabel(role.name) : `Rôle inconnu (${roleId})`;
 
     embed.addFields({ name: roleName, value: `${minutes} minute(s)`, inline: true });
@@ -38,8 +37,6 @@ if (!cooldownEntries.length) {
   });
 
 }
-
-// ➕ Ajout du cooldown par défaut si présent
 
 if ('default' in cooldowns) {
 
@@ -77,9 +74,7 @@ function getCooldownRoleMenu(cooldowns, guild) {
 
   })
 
-  .slice(0, 24); // 24 max + 1 pour option spéciale
-
-// ✅ Ajout de l'option « cooldown par défaut »
+  .slice(0, 24);
 
 options.push({
 
