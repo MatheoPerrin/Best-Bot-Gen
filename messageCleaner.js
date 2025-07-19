@@ -1,14 +1,4 @@
-// helpers/messageCleaner.js
-
-/**
-
- * Supprime un message ou une réponse après un délai donné
-
- * @param {Message|InteractionResponse} messageOrReply - Le message ou la réponse
-
- * @param {number} delay - Délai en millisecondes avant suppression
-
- */
+// messageCleaner.js
 
 function isEmojiMessage(msg) {
 
@@ -80,19 +70,6 @@ async function autoDelete(messageOrReply, delay = 5000) {
 
 }
 
-/**
-
- * Supprime le message du bot + le message original de l’utilisateur (si possible)
-
- * @param {Interaction} interaction - L'interaction Discord
-
- * @param {Message} botReply - Le message du bot à supprimer
-
- * @param {number} delay - Délai avant suppression
-
- */
-
-
 async function cleanInteraction(interaction, botReply, delay = 5000, maxAgeSec = 120) {
   autoDelete(botReply, delay);
 
@@ -101,14 +78,12 @@ async function cleanInteraction(interaction, botReply, delay = 5000, maxAgeSec =
 
     const now = Date.now();
 
-    // 1️⃣ Cherche un message emoji/lien/image valide
     const emojiMsg = messages.find(msg =>
       msg.author.id === interaction.user.id &&
       isEmojiMessage(msg) &&
       now - msg.createdTimestamp <= maxAgeSec * 1000
     );
 
-    // 2️⃣ Sinon, prend le dernier message texte de l'utilisateur récent
     const fallbackMsg = messages.find(msg =>
       msg.author.id === interaction.user.id &&
       !msg.system &&
