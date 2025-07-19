@@ -6,19 +6,11 @@ const gradient = require('gradient-string');
 
 const ora = require('ora');
 
-/**
-
- * Affiche une bannière stylée pour le lancement du bot
-
- * @param {Client} client - Instance Discord.js
-
- */
-
 async function showBanner(client) {
 
   console.clear();
 
-  process.stdout.write('\x1Bc'); // flush terminal complet
+  process.stdout.write('\x1Bc');
 
   const spinner = ora({
 
@@ -62,27 +54,17 @@ async function showBanner(client) {
 
   const line = '─'.repeat(width);
 
-  const version = '1.0.0';
+  const version = '1.0.1';
 
   const inviteURL = `https://discord.com/oauth2/authorize?client_id=${client.user.id}&scope=bot&permissions=8`;
 
   const profileURL = `https://discord.com/users/${client.user.id}`;
 
-  // 🧱 Banner ASCII
-
   console.log(isSmall ? chalk.cyan(ascii) : gradient.retro.multiline(ascii));
-
-  // 📦 Version et environnement
 
   const versionText = chalk.bold('🧩  Version ') + chalk.hex('#00ffff')(version);
 
   console.log(chalk.gray(line));
-
-  //console.log(centerText(versionText, width));
-
-  //console.log(chalk.gray(line));
-
-  // 👨‍🎨 Made by centré
 
   const madeBy = chalk.bold('⚡  Made by ') +
 
@@ -93,8 +75,6 @@ async function showBanner(client) {
   console.log(centerText(versionText + ' | ' + madeBy, width));
 
   console.log(chalk.gray(line));
-
-  // 🧾 Infos bot
 
   console.log(chalk.cyan('🤖  Nom : ') + chalk.white(client.user.username));
 
@@ -111,8 +91,6 @@ async function showBanner(client) {
   console.log('');
 
 }
-
-// 🧲 Fonction pour centrer du texte
 
 function centerText(text, width = process.stdout.columns) {
 
