@@ -5,14 +5,14 @@
     "emoji": "🍿",
     "image": "https://cdn.discordapp.com/emojis/1374709026667102248.png?quality=lossless&name=Netflix1&size=48",
     "style": "Danger",
-    "file": "/home/container/stock/netflix.txt"
+    "file": "stock/netflix.txt"
   },
   {
     "id": "disney+",
     "label": "Disney+",
-    "emoji": "<:disney_:1393994554851721227>",
+    "emoji": "✨️",
     "image": "https://media.discordapp.net/attachments/1393307411544014848/1393667596586455051/uikcDtaA.png?ex=6874aa58&is=687358d8&hm=30bfae2601622612f933622d7ca38ae53acefebca7cebc715c71bac12fd25aa0&",
     "style": "Primary",
-    "file": "/home/container/stock/disney+.txt"
+    "file": "stock/disney+.txt"
   }
 ]
