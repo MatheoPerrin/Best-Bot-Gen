@@ -1,3 +1,4 @@
+// ❗️IMPORTANT: Pour configurer le bot (token,id du serveur...), allez sur le fichier .env ❗️ (Peut être déplacé ou masqué selon votre environnement)
 // ⚠️ Ceci est un fichier sous format .jsonc donc JSON mais version avec des commentaires afin de vous aider
 // Une fois le configuration manuelle fini et bot lancer, tout les commentaires seront supprimés
 {
