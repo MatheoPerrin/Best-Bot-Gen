@@ -1,0 +1,202 @@
+[
+  {
+    "id": "nordvpn",
+    "label": "NordVPN",
+    "emoji": "<:nordvpn:1378107329664516229>",
+    "image": "https://media.discordapp.net/attachments/1378088858528387132/1378107147706961991/e4JQTLj9.png?ex=683b65cc&is=683a144c&hm=5e89336f8cde280d73a3188466dc888a69f3013622d94d3c3de1996b6bec11b8&",
+    "style": "Primary",
+    "file": "/home/container/stock/nordvpn.txt"
+  },
+  {
+    "id": "netflix",
+    "label": "Netflix",
+    "emoji": "<:netflix:1377735711423467584>",
+    "image": "https://cdn.discordapp.com/emojis/1374709026667102248.png?quality=lossless&name=Netflix1&size=48",
+    "style": "Danger",
+    "file": "/home/container/stock/netflix.txt"
+  },
+  {
+    "id": "nolagvpn",
+    "label": "NolagVPN",
+    "emoji": "<:nolagvpn:1378106243604025404>",
+    "image": "https://media.discordapp.net/attachments/1378088858528387132/1378106069498466324/Ix95gz56.png?ex=683b64ca&is=683a134a&hm=34e0326291d5d9e13aef735a96a262b309677c091c3ac7d77a1ec4d19191bff6&",
+    "style": "Secondary",
+    "file": "/home/container/stock/nolagvpn.txt"
+  },
+  {
+    "id": "o'tacos",
+    "label": "O'tacos",
+    "emoji": "<:o_tacos:1393994809152114801>",
+    "image": "https://media.discordapp.net/attachments/1393307411544014848/1393667956159807583/mnvlHRSe.png?ex=6874aaad&is=6873592d&hm=b489bac881a8eec141419903bc651bf3f4a19352f40d44f2fe421cc65127b963&",
+    "style": "Secondary",
+    "file": "/home/container/stock/o'tacos.txt"
+  },
+  {
+    "id": "outlook",
+    "label": "Outlook",
+    "emoji": "<:outlook:1377766168072425504>",
+    "image": "https://media.discordapp.net/attachments/1377583129493241876/1377762795520790629/FMxJd46G.png?ex=683a2518&is=6838d398&hm=575105bcf7a1533fdfe57f8e01f3d97770fbb91ee3cdf9dd0c6318daba85bdc1&",
+    "style": "Primary",
+    "file": "/home/container/stock/outlook.txt"
+  },
+  {
+    "id": "spotify",
+    "label": "Spotify",
+    "emoji": "<:spotify:1378106765652135967>",
+    "image": "https://media.discordapp.net/attachments/1378088858528387132/1378106590996988004/KtadgaVx.png?ex=683b6547&is=683a13c7&hm=587753420181e34849a095f207bb7e05bb3ae5c7afaba7b4e6d40ee4fca068f8&",
+    "style": "Success",
+    "file": "/home/container/stock/spotify.txt"
+  },
+  {
+    "id": "disney+",
+    "label": "Disney+",
+    "emoji": "<:disney_:1393994554851721227>",
+    "image": "https://media.discordapp.net/attachments/1393307411544014848/1393667596586455051/uikcDtaA.png?ex=6874aa58&is=687358d8&hm=30bfae2601622612f933622d7ca38ae53acefebca7cebc715c71bac12fd25aa0&",
+    "style": "Primary",
+    "file": "/home/container/stock/disney+.txt"
+  },
+  {
+    "id": "minecraft",
+    "label": "Minecraft",
+    "emoji": "<:minecraft:1377777396392001626>",
+    "image": "https://media.discordapp.net/attachments/1377583129493241876/1377777215542001745/6EOW9OlN.png?ex=683a3286&is=6838e106&hm=79e11901440ffc2bd5eef93a22de72d285d84b7b7ee70a49af0ee5cffb96ff0d&",
+    "style": "Success",
+    "file": "/home/container/stock/minecraft.txt"
+  },
+  {
+    "id": "fortnite",
+    "label": "Fortnite",
+    "emoji": "<:fortnite:1378109694433824888>",
+    "image": "https://media.discordapp.net/attachments/1378088858528387132/1378109550028390430/JLWiCmPc.png?ex=683b6808&is=683a1688&hm=868a38d37cc864eea656e29e12a6335577bcb3ea400f941d78b7f09ac6d4ad4f&",
+    "style": "Primary",
+    "file": "/home/container/stock/fortnite.txt"
+  },
+  {
+    "id": "tiktok",
+    "label": "Tiktok",
+    "emoji": "<:tiktok:1378105077960544388>",
+    "image": "https://media.discordapp.net/attachments/1378088858528387132/1378104385564835990/asKLStiw.webp?ex=683b6339&is=683a11b9&hm=4b03850233250f13af163b69f00d3984e53ad7a1c1a998471374c36b5ad02be8&",
+    "style": "Danger",
+    "file": "/home/container/stock/tiktok.txt"
+  },
+  {
+    "id": "twitter",
+    "label": "Twitter",
+    "emoji": "<:twitter:1377779350954577920>",
+    "image": "https://media.discordapp.net/attachments/1377583129493241876/1377779227226800190/LGrtNY04.png?ex=683a3465&is=6838e2e5&hm=d6d0df85bad93b13b50b2df0f2a7daa51cbe3de84a9ade4f930ba2924802a800&",
+    "style": "Primary",
+    "file": "/home/container/stock/twitter.txt"
+  },
+  {
+    "id": "hbo-max",
+    "label": "HBO Max",
+    "emoji": "<:hbo_max:1393994980745285723>",
+    "image": "https://media.discordapp.net/attachments/1393307411544014848/1393685419325001839/0gkwbnyI.webp?ex=6874baf1&is=68736971&hm=483e2f52f5958daf2ee4ceb78a83b585610acd0f35c6b5e9be6e9c8dd6d6cd6f&",
+    "style": "Primary",
+    "file": "/home/container/stock/hbo-max.txt"
+  },
+  {
+    "id": "duolingo",
+    "label": "Duolingo",
+    "emoji": "<:duolingo:1381272833942098012>",
+    "image": "https://media.discordapp.net/attachments/1380935114581872761/1381272579611820032/4HHliL3S.png?ex=6846e9d5&is=68459855&hm=667e8432dfdeb5369d8149e4a1eb2d834b26aaa15389789613e7eee15e3ef22a&",
+    "style": "Success",
+    "file": "/home/container/stock/duolingo.txt"
+  },
+  {
+    "id": "geoguessr",
+    "label": "GeoGuessr",
+    "emoji": "<:geoguessr:1381274195241205770>",
+    "image": "https://media.discordapp.net/attachments/1380935114581872761/1381274032082522212/Bf3faXtc.jpg?ex=6846eb30&is=684599b0&hm=9f78aa71f6a4b5e6dabdbda097bfa015e94f68b052c038a68129e35e6cdfdb7a&",
+    "style": "Danger",
+    "file": "/home/container/stock/geoguessr.txt"
+  },
+  {
+    "id": "prime-video",
+    "label": "Prime Video",
+    "emoji": "<:prime_video:1393995187075678208>",
+    "image": "https://media.discordapp.net/attachments/1393307411544014848/1393685419723591770/Gdtodq0z.png?ex=6874baf1&is=68736971&hm=385961abf6dbef5719634b549749d3b799552b9516f2e14fb93f7ecbe0f6c370&",
+    "style": "Primary",
+    "file": "/home/container/stock/prime-video.txt"
+  },
+  {
+    "id": "molotov",
+    "label": "Molotov",
+    "emoji": "<:molotov:1381276283736166500>",
+    "image": "https://media.discordapp.net/attachments/1380935114581872761/1381275912359645205/UkXHJOwm.png?ex=6846ecf0&is=68459b70&hm=e8774135648d28c42afac8cdf326f3d62ee31f3ef941947e2df960c4d7912696&",
+    "style": "Secondary",
+    "file": "/home/container/stock/molotov.txt"
+  },
+  {
+    "id": "xbox",
+    "label": "Xbox",
+    "emoji": "<:xbox:1381276659222581268>",
+    "image": "https://media.discordapp.net/attachments/1380935114581872761/1381275922061332632/hGK9Sb2j.png?ex=6846ecf2&is=68459b72&hm=20598e2e8428739e02c0b8de0b10bbff7e99736b954e6146c90f57042335b9f8&",
+    "style": "Success",
+    "file": "/home/container/stock/xbox.txt"
+  },
+  {
+    "id": "valorant",
+    "label": "Valorant",
+    "emoji": "<:valorant:1381276936118206546>",
+    "image": "https://media.discordapp.net/attachments/1380935114581872761/1381275901378953396/IG5krHms.png?ex=6846eced&is=68459b6d&hm=9a802d52393fa1421b6f34cf60448f7432b69d14cd1f0d404c90dc8d09bbfaf7&",
+    "style": "Danger",
+    "file": "/home/container/stock/valorant.txt"
+  },
+  {
+    "id": "steam",
+    "label": "Steam",
+    "emoji": "<:steam:1381277142238761070>",
+    "image": "https://media.discordapp.net/attachments/1380935114581872761/1381275943024463872/tL6WvURY.png?ex=6846ecf7&is=68459b77&hm=9576818ecd6f4884a00922483cb6d1b24fbe722f089565d556cdc11fc3ca6711&",
+    "style": "Primary",
+    "file": "/home/container/stock/steam.txt"
+  },
+  {
+    "id": "sfr",
+    "label": "SFR",
+    "emoji": "<:sfr:1381279082204889263>",
+    "image": "https://media.discordapp.net/attachments/1380935114581872761/1381277972987646063/4JJJBLin.png?ex=6846eedb&is=68459d5b&hm=8fedd9852934658a27a1b54531dd883869d402ca2c14ceeb9f25c64ae08149da&",
+    "style": "Danger",
+    "file": "/home/container/stock/sfr.txt"
+  },
+  {
+    "id": "tunnelbear",
+    "label": "TunnelBear",
+    "emoji": "<:tunnelbear:1381279299180564540>",
+    "image": "https://media.discordapp.net/attachments/1380935114581872761/1381277826908688476/0KXN5AjW.png?ex=6846eeb8&is=68459d38&hm=fc8577fc7c09d3d679d4a88f884a4140dfa3e61f91ab912eed262127b54e2993&",
+    "style": "Secondary",
+    "file": "/home/container/stock/tunnelbear.txt"
+  },
+  {
+    "id": "paramount+",
+    "label": "Paramount+",
+    "emoji": "<:paramount_:1393995367250399232>",
+    "image": "https://media.discordapp.net/attachments/1393307411544014848/1393685711839821866/prcTOzMI.png?ex=6874bb37&is=687369b7&hm=ee5d3041dd1c06e2f2c6620a0e0c1d85552a3a0ebfdce3e85456dffa4568b2f3&",
+    "style": "Primary",
+    "file": "/home/container/stock/paramount+.txt"
+  },
+  {
+    "id": "free",
+    "label": "Free",
+    "emoji": "<:free:1381283998969495632>",
+    "image": "https://media.discordapp.net/attachments/1380935114581872761/1381278230216183918/1EfJJvXE.png?ex=6846ef18&is=68459d98&hm=223d87f1c2bb50c2a018cf2ebb086cb5e65d3416d215805851ed70beafbeaf56&",
+    "style": "Danger",
+    "file": "/home/container/stock/free.txt"
+  },
+  {
+    "id": "ubisoft",
+    "label": "Ubisoft",
+    "emoji": "<:ubisoft:1381297526313058394>",
+    "image": "https://media.discordapp.net/attachments/1380935114581872761/1381297357362167910/pY5a7pxa.png?ex=684700e9&is=6845af69&hm=96c3306c9be5c7cc559ecb5d0dc20e76a06d6f2c1ea57011104703f62d270d71&",
+    "style": "Primary",
+    "file": "/home/container/stock/ubisoft.txt"
+  },
+  {
+    "id": "tempnumber",
+    "label": "TempNumber",
+    "emoji": "<:tempnumber:1381300296831074367>",
+    "image": "https://media.discordapp.net/attachments/1380935114581872761/1381299776229736499/trx1HfFv.png?ex=68470329&is=6845b1a9&hm=e14c63c45d282a9553dfdb4e1e592820513f7f34ef1e152125d957fe1e6802c8&",
+    "style": "Danger",
+    "file": "/home/container/stock/tempnumber.txt"
+  }
+]

@@ -1,0 +1,53 @@
+{
+
+  "name": "discord-panel-bot",
+
+  "version": "1.0.0",
+
+  "description": ".",
+
+  "main": "index.js",
+
+  "scripts": {
+
+    "start": "node index.js"
+
+  },
+
+  "dependencies": {
+      
+    "axios": "^1.4.0",
+      
+    "comment-json": "^4.2.5",
+      
+    "discord.js": "^14.11.0",
+
+    "dotenv": "^16.0.0",
+      
+    "emoji-regex": "^10.2.1",
+
+    "fs": "^0.0.1-security",
+     
+    "node-fetch": "^3.3.1",
+      
+    "node-vibrant": "^4.0.3",
+      
+    "sharp": "^0.34.2",
+      
+    "wikijs": "^6.3.0"
+
+  },
+
+  "engines": {
+
+    "node": "^16.9.0 || ^18.0.0"
+
+  },
+
+  "author": "",
+
+  "license": "MIT"
+
+}
+
+
