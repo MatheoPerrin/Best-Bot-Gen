@@ -1,11 +1,5 @@
 // utils/roleLabel.js
 
-/**
-
- * Détecte si le nom contient une durée (ex: 5min, 10M) et retourne un emoji horloge
-
- */
-
 function detectTimeEmojiPrefix(name) {
 
   const timeMatch = name.match(/(\d+)\s*(m|min|minutes?)/i);
@@ -20,12 +14,6 @@ function detectTimeEmojiPrefix(name) {
 
 }
 
-/**
-
- * Met en majuscule la première lettre alphabétique d'un nom, en conservant les emojis ou caractères spéciaux devant.
-
- */
-
 function capitalizeFirstLetter(name) {
 
   const match = name.match(/^([\p{Emoji}\W_]*)([a-zA-ZÀ-ÿ])(.*)$/u);
@@ -38,27 +26,11 @@ function capitalizeFirstLetter(name) {
 
 }
 
-/**
-
- * Vérifie si le nom commence par un emoji Discord standard
-
- */
-
 function hasEmojiPrefix(name) {
 
   return /^\p{Emoji}/u.test(name.trim());
 
 }
-
-/**
-
- * Formate le nom du rôle : majuscule sur première lettre alphabétique,
-
- * ajoute emoji contextuel (📦, 👤, ...) + horloge si durée détectée,
-
- * sauf si un emoji est déjà au début du nom.
-
- */
 
 function formatRoleLabel(name) {
 
@@ -68,13 +40,9 @@ function formatRoleLabel(name) {
 
   const hasLeadingEmoji = hasEmojiPrefix(name);
 
-  // 🕒 Horloge si durée détectée et pas déjà d'emoji
-
   const timeEmoji = !hasLeadingEmoji ? detectTimeEmojiPrefix(name) : null;
 
   if (timeEmoji) emojiPrefix += `${timeEmoji} `;
-
-  // 📦 Emoji selon contenu (uniquement si pas déjà d'emoji)
 
   if (!hasLeadingEmoji) {
 
@@ -91,8 +59,6 @@ function formatRoleLabel(name) {
     else if (lower.includes('test')) emojiPrefix += '🧪 ';
 
   }
-
-  // ✅ Appliquer majuscule à la première lettre alphabétique réelle
 
   const capitalized = capitalizeFirstLetter(name);
 
