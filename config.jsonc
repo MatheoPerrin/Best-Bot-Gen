@@ -1,11 +1,14 @@
+// ⚠️ Ceci est un fichier sous format .jsonc donc JSON mais version avec des commentaires afin de vous aider
+// Une fois le configuration manuelle fini et bot lancer, tout les commentaires seront supprimés
 {
-  "VIP_ROLE_ID": "1393992126907289630",
-  "FOURNI_ROLE_ID": "1393992176538746910",
-  "ADMIN_ROLE_ID": "1393989935995818145",
-  "STOCK_CHANNEL_ID": "1393992542277734534",
-  "PANEL_CHANNEL_ID": "1393894725555327061",
-  "REQUIRED_ROLE_ID": "1377668924388413590",
-  "banner": "https://media.discordapp.net/attachments/1393307411544014848/1393993847645671455/jLYl7PZQ.jpg?ex=68753170&is=6873dff0&hm=efbeea76152844e959fe50947fb09de6d17fec9d6caccfdacc3b67556badb588&",
-  "modeAffichage": 2,
-  "filtrageStock": 2
+  "VIP_ROLE_ID": "", //ID Du Rôle VIP
+  "FOURNI_ROLE_ID": "", //ID Du Rôle Fournisseur
+  "ADMIN_ROLE_ID": "", //ID Du Rôle Administateur
+  "STOCK_CHANNEL_ID": "", //ID Du Salon Restock
+  "PANEL_CHANNEL_ID": "", //ID Du Salon Panel (Générateur de services)
+  "REQUIRED_ROLE_ID": "", //ID Du rôle Requis (Par exemple ceux qui ont le rôle soutient donc avec .gg/bestgen dans leur statut par exemple
+  "banner": "", //Lien De la Bannière (.png,.jpg...) (Pas obligatoire)
+  "modeAffichage": 1, // 1 = Boutons | 2 = Menu Déroulant
+  "filtrageStock": 2 // 1 = Masquer Service Vide | 2 = Laisser
 }
+// Après le premier lancement du bot et configuration manuelle, nous recommandons de faire les modifications depuis la commande /config et pas ici !
