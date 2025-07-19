@@ -60,10 +60,6 @@ function getFooterText(interactionOrClient) {
 
   if (footerText?.length) return footerText;
 
-  // Si interaction → interaction.guild.name
-
-  // Sinon → client.guilds.cache.first().name
-
   if (interactionOrClient.guild) {
 
     return interactionOrClient.guild.name;
@@ -85,13 +81,9 @@ const raw = fs.readFileSync('./config.jsonc', 'utf8');
 let config = commentJson.parse(raw);
 let currentConfig = '';
 
-//const config = JSON.parse(fs.readFileSync(path.join(__dirname, 'config.json')));
-
 const fetch = require('node-fetch');
 
 const axios = require('axios');
-
-//const Vibrant = require('node-vibrant');
 
 const { Vibrant } = require('node-vibrant/node');
 
@@ -107,7 +99,6 @@ function updateConfigKey(key, value, configFile = 'config.jsonc') {
     return;
   }
 
-  // Lire et parser le fichier avec les commentaires
   const rawContent = fs.readFileSync(configPath, 'utf8');
   let config;
 
@@ -117,102 +108,20 @@ function updateConfigKey(key, value, configFile = 'config.jsonc') {
     console.error('❌ Erreur lors du parsing JSONC :', err);
     return;
   }
-  // Mise à jour de la clé
   config[key] = value;
     
   currentConfig = config;
-   //console.log(currentConfig);
 
-  // Réécriture en conservant les commentaires
   const updated = commentJson.stringify(config, null, 2);
 
   fs.writeFileSync(configPath, updated, 'utf8');
   console.log(`✅ Clé "${key}" mise à jour dans ${configFile}`);
-    
-    // 🔄 Mise à jour de la variable globale `config`
-  //Object.assign(config, currentConfig);
-}
-
-
-async function testUrl(url) {
-  try {
-    const res = await fetch(url, { method: 'HEAD', timeout: 5000 });
-    return res.ok;
-  } catch {
-    return false;
-  }
+  
 }
 
 async function findServiceUrl(label) {
   const cleanLabel = label.replace(/'/g, '-').replace(/[^a-zA-Z0-9\s-]/g, '').trim();
   const query = `${cleanLabel} site officiel`;
-
-  // 1. Brave Search
-  try {
-    const res = await axios.get(`https://api.search.brave.com/res/v1/web/search?q=${encodeURIComponent(query)}`, {
-      headers: {
-        Accept: 'application/json',
-        // 'X-API-Key': 'your-brave-api-key' // Ajoute ta clé si nécessaire
-      }
-    });
-
-    if (res.status === 429) throw new Error('Rate limited');
-    const results = res.data.web?.results || [];
-
-    const filtered = results.filter(r =>
-      !r.url.includes('googleadservices.com') &&
-      !r.url.includes('gclid=') &&
-      !r.url.includes('maps.google.')
-    );
-
-    const loginPage = filtered.find(r =>
-      ['login', 'sign-in', 'connexion'].some(k => r.url.toLowerCase().includes(k))
-    );
-    if (loginPage) return loginPage.url;
-    if (filtered.length > 0) return filtered[0].url;
-  } catch (e) {
-    console.warn('[Brave Search failed]', e.message);
-  }
-
-  // 2. Google fallback (HTML scraping)
-  try {
-    const res = await axios.get(`https://www.google.com/search?q=${encodeURIComponent(query)}`, {
-      headers: {
-        'User-Agent': 'Mozilla/5.0'
-      }
-    });
-
-    const html = res.data;
-
-    // Extraire les liens de recherche (éviter les pubs et maps)
-    const matches = [...html.matchAll(/<a href="\/url\?q=(https?:\/\/[^"&]+)&/g)];
-
-    const filtered = matches
-      .map(m => decodeURIComponent(m[1]))
-      .filter(url =>
-        !url.includes('googleadservices.com') &&
-        !url.includes('gclid=') &&
-        !url.includes('maps.google.') &&
-        !url.includes('support.google.') &&
-        !url.includes('policies.google.') &&
-        !url.includes('youtube.com')
-      );
-
-    if (filtered.length > 0) return filtered[0];
-  } catch (e) {
-    console.warn('[Google scrape failed]', e.message);
-  }
-
-  // 3. Brut force domain
-  const base = cleanLabel.toLowerCase().replace(/\s+/g, '');
-  const domains = ['.com', '.fr', '.net', '.tv', '.io'];
-
-  for (const ext of domains) {
-    const url = `https://${base}${ext}`;
-    if (await testUrl(url)) return url;
-  }
-
-  // 4. Dernier recours : Lien vers la recherche Google
   return `https://www.google.com/search?q=${encodeURIComponent(query)}`;
 }
 
@@ -266,7 +175,6 @@ function generateAIDescription(label) {
     return `${label} est une intelligence artificielle conçue pour répondre à vos questions et vous assister dans vos tâches.`;
   }
 
-  // 🧠 Phrase IA générique
   return `${label} est un service numérique apprécié, reconnu pour sa simplicité d'utilisation et ses fonctionnalités variées.`;
 }
 
@@ -297,7 +205,6 @@ function getDefaultBanner(label) {
     return 'https://iili.io/FEbyYKl.jpg';
   }
 
-  // Générique
   return 'https://i.postimg.cc/3JNYRMTg/Chiffres-reseaux-sociaux-2023.jpg';
 }
 
@@ -341,8 +248,6 @@ setupAntiCrash({
 
     console.log('[Cleanup] On nettoie avant fermeture...', err ? err.message : '');
 
-    // Exemple : fermeture DB, fermeture sockets, sauvegarde état, etc.
-
   },
 
   exitOnError: false,
@@ -351,15 +256,11 @@ setupAntiCrash({
 
 console.log('App Node.js démarrée');
 
-// Test uncaughtException
-
 setTimeout(() => {
 
   throw new Error('Erreur uncaughtException test');
 
 }, 2000);
-
-// Test unhandledRejection
 
 setTimeout(() => {
 
@@ -382,8 +283,6 @@ const client = new Client({
   ]
 
 });
-
-//await client.users.fetch(client.user.id, { force: true }); // force le fetch complet du bot
 
 const cooldown = new Map();
 
@@ -425,9 +324,9 @@ let content_banner = "";
 
 const styleColor = {
 
-  Primary: 0x5865f2,    // bleu Discord
+  Primary: 0x5865f2,    // bleu
 
-  Secondary: 0xffffff,  // blanc forcé
+  Secondary: 0xffffff,  // blanc
 
   Success: 0x57f287,    // vert
 
@@ -585,28 +484,8 @@ async function getServiceSelectEmbed(client, services, config) {
     return null;
   }).filter(Boolean).join('\n');
 
-  let embedColor = 0x2f3136; // Couleur par défaut
+    let embedColor = 0x2f3136;
 
-/*if (imageUrl) {
-  try {
-    const res = await axios.get(imageUrl, { responseType: 'arraybuffer' });
-    const buffer = Buffer.from(res.data, 'binary');
-    console.log(buffer);
-    const palette = await Vibrant.from(buffer).getPalette();
-
-    if (palette?.Vibrant?.hex) {
-      embedColor = parseInt(palette.Vibrant.hex.replace('#', ''), 16);
-      console.log(`🎨 Couleur extraite automatiquement : ${palette.Vibrant.hex}`);
-    } else {
-      console.warn('⚠️ Aucune couleur "Vibrant" trouvée dans l’image.');
-    }
-
-  } catch (err) {
-    console.warn('❌ Erreur lors de l’analyse de l’image pour couleur :', err?.message || err);
-  }
-} else {
-  console.log('📷 Aucun lien de bannière trouvé, couleur par défaut appliquée.');
-}*/
     embedColor = await getDominantColorFromImageUrl(imageUrl)
     console.log(embedColor);
     const embed = new EmbedBuilder()
@@ -617,8 +496,6 @@ async function getServiceSelectEmbed(client, services, config) {
 
     .setColor(embedColor);
 
-    //.setFooter({ text: 'Powered by discord.gg/mastergen-x' });
-
   if (imageUrl) embed.setImage(imageUrl);
     
   console.log("Embed préparer");
@@ -626,15 +503,6 @@ async function getServiceSelectEmbed(client, services, config) {
   return embed;
 
 }
-
-/*function normalizeForEmojiName(name) {
-  return name
-    .toLowerCase()
-    .replace(/\+/g, '_')
-    .replace(/'/g, '_')
-    .replace(/\s+/g, '_')
-    .replace(/[^a-z0-9_]/g, ''); // garde a-z, 0-9, et _
-}*/
 
 function normalizeEmojiName(name) {
   return name
@@ -652,7 +520,6 @@ async function cleanupUnusedEmojisSmart(client, services) {
   const emojis = await guild.emojis.fetch();
   const usedImageHashes = new Set();
 
-  // 🎯 Liste des noms d'emoji attendus (normalisés)
   const validEmojiNames = new Set(
     services.map(s => normalizeEmojiName(s.id || ''))
   );
@@ -685,16 +552,10 @@ async function cleanupUnusedEmojisSmart(client, services) {
   console.log(`✅ Nettoyage terminé : ${removed}/${emojis.size} emojis supprimés.`);
 }
     
-/**
- * Met à jour les commandes slash.
- * 
- * @param {string} [guildId] - L'ID de la guilde pour commandes guild, sinon globales.
- */
 async function registerCommands(services, lac, guildId) {
   try {
-    const commands = await getCommands(services); // ← important
+    const commands = await getCommands(services);
     if (guildId) {
-      // Mise à jour commandes guild (rapide)
       try {
       await rest.put(Routes.applicationCommands(client.user.id), { body: [] });
       await rest.put(
@@ -710,25 +571,16 @@ async function registerCommands(services, lac, guildId) {
   }
 }
     } else {
-      // Mise à jour commandes globales (lent à propager)
      try {
       if (lac === 0) {
        const guilds = await client.guilds.fetch();
 
-for (const [guildId] of guilds) {
-
-  await rest.put(Routes.applicationGuildCommands(client.user.id, guildId), { body: commands });
-
-  console.log(`✅ Commandes supprimées pour la guilde ${guildId}`);
-
-}
-      //await rest.put(Routes.applicationGuildCommands(client.user.id), { body: [] });
-       lac = 1;
-          }
-      /*await rest.put(
-        Routes.applicationCommands(client.user.id),
-        { body: commands }
-      );*/
+        for (const [guildId] of guilds) {
+          await rest.put(Routes.applicationGuildCommands(client.user.id, guildId), { body: commands });
+          console.log(`✅ Commandes supprimées pour la guilde ${guildId}`);
+        }
+        lac = 1;
+      }
       console.log(`Commandes globales mises à jour`);
         } catch (error) {
   if (error.status === 429) {
@@ -742,28 +594,6 @@ for (const [guildId] of guilds) {
     console.error('Erreur lors de la mise à jour des commandes :', error);
   }
 }
-
-/*async function registerCommands() {
-
-  try {
-
-    await rest.put(
-
-      Routes.applicationCommands(client.user.id),
-
-      { body: commands }
-
-    );
-
-    console.log('Commandes slash enregistrées');
-
-  } catch (error) {
-
-    console.error('Erreur lors de l\'enregistrement des commandes :', error);
-
-  }
-
-}*/
 
 function isValidDiscordEmoji(input) {
 
@@ -786,19 +616,15 @@ function beautifyKey(key) {
   if (key === 'modeAffichage') return '🧩 Type de menu';
   if (key === 'filtrageStock') return '⚙️ Masquer service vide';
 
-  // 🔧 Nettoyage du label de base
   let label = key.replace(/_USER_ID|_ROLE_ID|_CHANNEL_ID/g, '');
   label = label.charAt(0).toUpperCase() + label.slice(1).toLowerCase();
 
-  // 📌 Affichage personnalisé pour STOCK_CHANNEL_ID
   if (key === 'STOCK_CHANNEL_ID') label = 'Restock';
 
-  // 🧠 Ajout de suffixes
   if (key.includes('USER')) label += ' (Utilisateur)';
   if (key.includes('ROLE')) label += ' (Rôle)';
   if (key.includes('CHANNEL')) label += ' (Salon)';
 
-  // 🧩 Émojis contextuels
   let emoji = '';
   if (key.includes('FOURNI') || key.includes('STOCK')) emoji = '📦';
   else if (key.includes('USER')) emoji = '👤';
@@ -809,37 +635,32 @@ function beautifyKey(key) {
   else if (key.includes('TOKEN') || key.includes('CLE') || key.includes('CLÉ')) emoji = '🔑';
 
   return `${emoji} ${label}`;
-}
-    function beautifyValue(key, val, client, guild) {
-   // pour banner
+ }
+
+ function beautifyValue(key, val, client, guild) {
    if (key == 'banner') {
     const label = val ? val : '❌️ Aucun';
     return `${label}`;
    }
-  // pour modeAffichage
   if (key === 'modeAffichage') {
     const label = val == 1 ? 'Bouton' : 'Menu déroulant';
     return `${label}`;
   }
 
-  // pour filtrageStock
   if (key === 'filtrageStock') {
     const label = val == 1 ? 'Oui' : 'Non';
     return `${label}`;
   }
 
-  // afficher salon
   if (key.includes('CHANNEL') && guild) {
     const channel = guild.channels.cache.get(val);
     return channel ? `<#${val}>` : `Salon inconnu (${val})`;
   }
     
- // afficher utilisateur
 if (key.includes('USER') && guild) {
   const member = guild.members.cache.get(val);
   return member ? `<@${val}>` : `Utilisateur inconnu (${val})`;
 }
-  // afficher rôle
   if (key.includes('ROLE') && guild) {
     const role = guild.roles.cache.get(val);
     return role ? `<@&${val}>` : `Rôle inconnu (${val})`;
@@ -884,26 +705,8 @@ async function updateBotBannerFromUrl(url, client) {
   }
 }
 
-
-
-// Chargement dynamique des services depuis boutons.json
-
 let services = [];
 compteTemporaire = new Map();
-
-/*try {
-
-  const raw = fs.readFileSync(path.join(__dirname, 'boutons.json'), 'utf8');
-
-  services = JSON.parse(raw);
-
-} catch (error) {
-
-  console.error('Erreur lors du chargement de boutons.json', error);
-
-  process.exit(1);
-
-}*/
 
 try {
 
@@ -922,18 +725,6 @@ try {
   console.error('❌ Erreur lors du rechargement des services après restock :', err);
 
 }  
-
-// Assure que les chemins de fichiers sont dans le dossier stock
-
-/*services = services.map(service => ({
-
-  ...service,
-
-  file: path.join(stockFolder, service.file)
-
-}));*/
-
-// Construction des commandes slash
 
 async function getCommands(services) {
 
@@ -1022,11 +813,6 @@ const commands = [];
       .setDescription('Service à modifier')
       .setRequired(true)
       .setAutocomplete(true)
-      /*.addChoices(
-        ...services.map(s => ({
-          name: s.label,
-          value: s.id
-        }))*/
       )
   .addStringOption(option =>
     option.setName('label')
@@ -1076,16 +862,6 @@ const commands = [];
        
       .setAutocomplete(true)
 
-      /*.addChoices(
-
-        ...services.map(s => ({
-
-          name: s.label,
-
-          value: s.id
-
-        }))*/
-
   ));
 
   commands.push(
@@ -1104,8 +880,6 @@ const commands = [];
         .setRequired(true)
          
         .setAutocomplete(true)
-
-        //.addChoices(services.map(s => ({ name: s.label, value: s.id })))
                     )
 
     .addAttachmentOption(option =>
@@ -1161,9 +935,7 @@ client.once('ready', async () => {
 
   console.log(`Connecté en tant que ${client.user.tag}`);
     
-  await cleanupUnusedEmojisSmart(client, services)
-    
-  // Ajoute le nombre de comptes à chaque service au démarrage
+  await cleanupUnusedEmojisSmart(client, services);
 
   for (const service of services) {
 
@@ -1202,24 +974,6 @@ if (fs.existsSync(statutPath)) {
   console.log('✅ Statut du bot restauré depuis statut.json');
 
 }
-    
-  // Mise à jour automatique toutes les 2 minutes
-
-  /*setInterval(async () => {
-
-    try {
-
-      await registerCommands();
-
-      console.log('🔄 Commandes slash mises à jour (intervalle auto)');
-
-    } catch (err) {
-
-      console.error('❌ Erreur lors de la mise à jour automatique des commandes :', err.message);
-
-    }
-
-  }, 2 * 60 * 1000); // 2 minutes*/
 
 });
 
@@ -1251,11 +1005,11 @@ async function checkUserRole(interaction) {
 
   const member = interaction.member;
 
-  /*if (!member.roles.cache.has(REQUIRED_ROLE_ID)) {
+  if (!member.roles.cache.has(REQUIRED_ROLE_ID)) {
 
     await interaction.reply({
 
-      content: 'Ayez le rôle dans le salon discord.gg/mastergen-x pour intéragir ou générer avec le bot.',
+      content: `❌️ Vous devrez avoir le rôle <@${REQUIRED_ROLE_ID}> pour continuer`,
 
       ephemeral: true,
 
@@ -1263,7 +1017,7 @@ async function checkUserRole(interaction) {
 
     return false;
 
-  }*/
+  }
 
   return true;
 
@@ -1296,25 +1050,6 @@ function getTranslatedStatus(status) {
   };
   return map[status] || '❓ Inconnu';
 }
-
-/*function getBotConfigEmbed(client) {
-  const status = client.presence?.status || 'indéfini';
-  const translated = getTranslatedStatus(status);
-  const activity = client.user.presence?.activities?.[0];
-  const activityText = activity?.name || 'Aucun';
-  const activityType = activity?.type === 1 ? 'Stream (Twitch)' : 'Texte';
-
-  return new EmbedBuilder()
-    .setTitle('🤖 Configuration du bot')
-    .setColor(0x5865f2)
-    .setFooter({ text: 'Page 1/3 - Bot' })
-    .addFields(
-      { name: 'ℹ️ Nom du bot', value: `\`${client.user.username}\``, inline: true },
-      { name: '❓️ Statut', value: `${translated}`, inline: true },
-      { name: '💬 Texte', value: `\`${activityText}\` (${activityType})`, inline: false }
-    )
-    .setThumbnail(client.user.displayAvatarURL({ dynamic: true, size: 1024 }));
-}*/
  
 function getBotConfigEmbed(client) {
     
@@ -1466,8 +1201,6 @@ function safeEmoji(emojiStr, client) {
 
   }
 
-  // Si c’est un emoji unicode
-
   return emojiStr;
 
 }
@@ -1479,7 +1212,7 @@ updateConfigKey('PANEL_CHANNEL_ID',interaction.channel.id);
         } else {
   pax = 0;
             }
-  // ✅ Recalcul du stock pour chaque service
+
   for (const service of services) {
     if (fs.existsSync(service.file)) {
       const lines = fs.readFileSync(service.file, 'utf8').split('\n').filter(Boolean);
@@ -1489,18 +1222,12 @@ updateConfigKey('PANEL_CHANNEL_ID',interaction.channel.id);
     }
   }
 
-  // Filtrage selon config.filtrageStock
   let visibleServices;
   if (config.filtrageStock === 1) {
     visibleServices = services.filter(s => s.count > 0);
   } else {
-    visibleServices = [...services];
+    visibleServices = [...services]
   }
-
-  /*const embed = new EmbedBuilder()
-    .setTitle("Choisissez un service")
-    .setDescription('Générez un compte en sélectionnant un service ci-dessous.')
-    .setColor(0x000000);*/
     
   await client.users.fetch(client.user.id, { force: true });
     
