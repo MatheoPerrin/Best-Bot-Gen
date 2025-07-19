@@ -46,6 +46,11 @@
 
   },
 
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/o3gy/Best-Bot-Gen.git"
+  }
+
   "engines": {
 
     "node": "^18.0.0 || ^23.0.0"
