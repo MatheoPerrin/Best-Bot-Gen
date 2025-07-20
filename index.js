@@ -1,3 +1,6 @@
+const checkdevice = require("./checkDevice");
+checkdevice
+
 const {
 
   Client,
