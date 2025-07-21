@@ -1,4 +1,4 @@
-<h1 align="center">BestBot Gen</h1>
+<h1 align="center">Best Bot Gen</h1>
 <p align="center">
   🔐 Générateur de comptes Discord performant et simple à utiliser.
 </p>
@@ -6,7 +6,6 @@
 <p align="center">
   <img src="https://img.shields.io/github/stars/o3gy/Best-Bot-Gen?color=orange&style=flat-square" alt="Stars">
   <img src="https://img.shields.io/github/forks/o3gy/Best-Bot-Gen?color=blue&style=flat-square" alt="Forks">
-  <img src="https://img.shields.io/github/license/o3gy/Best-Bot-Gen?style=flat-square" alt="License">
   <img src="https://img.shields.io/github/languages/top/o3gy/Best-Bot-Gen?style=flat-square" alt="Langage principal">
 </p>
 
@@ -14,11 +13,12 @@
 
 ## 🚀 Installation rapide
 
-```bash
+```
 git clone https://github.com/o3gy/Best-Bot-Gen
 cd Best-Bot-Gen
 npm install
-npm start```
+npm start
+```
 
 > 📵 Ce projet ne fonctionne pas sur mobile / Termux / ARM64.
 Utilisez un VPS Linux, Node.js 16+, ou un hébergeur de bot.
