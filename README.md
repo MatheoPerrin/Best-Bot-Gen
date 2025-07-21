@@ -10,8 +10,7 @@
 </p>-->
 # 🚀 Best Bot Gen
 
-> Générateur de comptes Discord performant, interactif et full slash commands.  
-> ⚠️ Ne fonctionne pas sur mobile / Termux / ARM64 — utilisez un VPS Linux (Node.js 16+).
+> Générateur de services performant, interactif et personnaliser.
 
 ---
 
@@ -34,8 +33,8 @@ npm install
 npm start
 ```
 
-> 📵 Ce projet ne fonctionne pas sur mobile / Termux / ARM64.
-Utilisez un VPS Linux, Node.js 16+, ou un hébergeur de bot.
+> 📵 Ce projet ne fonctionne pas sur Téléphone / Termux / ARM64.
+ℹ️ Utilisez un VPS Linux, Node.js 16+, ou un hébergeur de bot.
 
 ---
 
@@ -72,8 +71,5 @@ Vous êtes responsable de votre utilisation.
 
 ---
 
-👤 Développé par
-
-GitHub : @o3gy
-
-Discord : o3gy
+👤 Développé par **o3gy**
+> 🎮 Discord : o3gy
