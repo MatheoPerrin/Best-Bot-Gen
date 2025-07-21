@@ -11,6 +11,45 @@
 
 ---
 
+# 🚀 Best-Bot-Gen
+
+> Générateur de comptes Discord performant, interactif et full slash commands.  
+> ⚠️ Ne fonctionne pas sur mobile / Termux / ARM64 — utilisez un VPS Linux (Node.js 16+).
+
+---
+
+## 🛠️ Fonctionnalités
+
+- Génération de comptes (tokens, clés, accès...)
+- Gestion du stock par service
+- Interface slash-commands complète
+- Panel de gestion intégré
+
+---
+
+## 💬 Commandes Slash
+
+| Commande     | Description                          |
+|--------------|--------------------------------------|
+| `/config`    | Configure le bot (nom, avatar...)    |
+| `/create`    | Crée un nouveau service              |
+| `/modif`     | Modifie un service existant          |
+| `/delete`    | Supprime un service                  |
+| `/stock`     | Affiche le stock disponible          |
+| `/panel`     | Affiche le panel de gestion          |
+| `/restock`   | Ajoute du stock à un service         |
+| `/unstock`   | Retire du stock d’un service         |
+
+---
+
+## 📦 Dépendances principales
+
+```bash
+chalk     # Couleurs dans la console
+ora       # Spinner de chargement
+boxen     # Encadrés visuels
+inquirer  # Interface CLI interactive
+
 ## 🚀 Installation rapide
 
 ```
