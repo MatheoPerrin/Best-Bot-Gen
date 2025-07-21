@@ -56,11 +56,10 @@ npm start
 
 ## 🧠 Exemple d'utilisation
 
-`/config`     → Configuration générale
-`/create`     → Crée un service comme "Netflix"
-
-`/restock`    → Ajoute des comptes au service
-`/stock`      → Vérifie le stock disponible
+> `/config`     → Configuration générale
+> `/create`     → Crée un service comme "Netflix"
+> `/restock`    → Ajoute des comptes au service
+> `/stock`      → Vérifie le stock disponible
 
 
 ---
