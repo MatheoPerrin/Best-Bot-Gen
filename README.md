@@ -1,4 +1,4 @@
-<h1 align="center">Best-Bot-Gen</h1>
+<h1 align="center">BestBot Gen</h1>
 <p align="center">
   🔐 Générateur de comptes Discord performant et simple à utiliser.
 </p>
@@ -18,7 +18,7 @@
 git clone https://github.com/o3gy/Best-Bot-Gen
 cd Best-Bot-Gen
 npm install
-npm start
+npm start```
 
 > 📵 Ce projet ne fonctionne pas sur mobile / Termux / ARM64.
 Utilisez un VPS Linux, Node.js 16+, ou un hébergeur de bot.
