@@ -65,7 +65,7 @@ npm start
 
 ## 📸 Captures d'écran
 
-Aperçu de l'interface du bot :
+Aperçu de l'interface du bot
 
 <p align="center">
   <img src="https://i.ibb.co/CKxR4HXX/Screenshot-20250715-154657-Discord.jpg" width="49%" style="border-radius: 12px; border: 1px solid #ccc; margin: 5px;"> 
