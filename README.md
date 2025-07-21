@@ -70,8 +70,8 @@ Aperçu de l'interface du bot
 <p align="center">
   <img src="https://i.ibb.co/CKxR4HXX/Screenshot-20250715-154657-Discord.jpg" width="49%" style="border-radius: 12px; border: 1px solid #ccc; margin: 5px;"> 
   <img src="https://i.ibb.co/4wGtZdCT/Screenshot-20250715-154717-Discord.jpg" width="49%" style="border-radius: 12px; border: 1px solid #ccc; margin: 5px;"> 
-  <img src="Img/RedTiger-3.png" width="49%" style="border-radius: 12px; border: 1px solid #ccc; margin: 5px;"> 
-  <img src="Img/Builder.png" width="49%" style="border-radius: 12px; border: 1px solid #ccc; margin: 5px;">
+  <img src="https://i.ibb.co/4wGtZdCT/Screenshot-20250715-154717-Discord.jpg" width="49%" style="border-radius: 12px; border: 1px solid #ccc; margin: 5px;"> 
+  <img src="https://i.ibb.co/4wGtZdCT/Screenshot-20250715-154717-Discord.jpg" width="49%" style="border-radius: 12px; border: 1px solid #ccc; margin: 5px;">
 </p>
 
 ## 🔒 Disclaimer
