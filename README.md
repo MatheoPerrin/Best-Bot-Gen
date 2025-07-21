@@ -1,4 +1,4 @@
-<h1 align="center">Best Bot Gen</h1>
+<!--<h1 align="center">Best Bot Gen</h1>
 <p align="center">
   🔐 Générateur de comptes Discord performant et simple à utiliser.
 </p>
@@ -7,10 +7,7 @@
   <img src="https://img.shields.io/github/stars/o3gy/Best-Bot-Gen?color=orange&style=flat-square" alt="Stars">
   <img src="https://img.shields.io/github/forks/o3gy/Best-Bot-Gen?color=blue&style=flat-square" alt="Forks">
   <img src="https://img.shields.io/github/languages/top/o3gy/Best-Bot-Gen?style=flat-square" alt="Langage principal">
-</p>
-
----
-
+</p>-->
 # 🚀 Best-Bot-Gen
 
 > Générateur de comptes Discord performant, interactif et full slash commands.  
@@ -20,10 +17,10 @@
 
 ## 🛠️ Fonctionnalités
 
-- Génération de comptes (tokens, clés, accès...)
+- Génération de services (titre, info, image...)
 - Gestion du stock par service
-- Interface slash-commands complète
-- Panel de gestion intégré
+- Interface Propre
+- Plusieurs panel de intégré
 
 ---
 
