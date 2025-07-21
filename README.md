@@ -34,6 +34,7 @@ npm start
 ```
 
 > 📵 Ce projet ne fonctionne pas sur Téléphone / Termux / ARM64.
+
 ℹ️ Utilisez un VPS Linux, Node.js 16+, ou un hébergeur de bot.
 
 ---
@@ -53,23 +54,24 @@ npm start
 
 ---
 
-🧠 Exemple d'utilisation
+## 🧠 Exemple d'utilisation
 
-/config     → Configuration générale
-/create     → Crée un service comme "Netflix"
-/restock    → Ajoute des comptes au service
-/stock      → Vérifie le stock disponible
+`/config`     → Configuration générale
+`/create`     → Crée un service comme "Netflix"
+
+`/restock`    → Ajoute des comptes au service
+`/stock`      → Vérifie le stock disponible
 
 
 ---
 
-🔒 Disclaimer
+## 🔒 Disclaimer
 
 > ❗ Projet éducatif uniquement.
-L’usage abusif enfreignant les règles Discord peut entraîner un bannissement.
+L’usage abusif enfreignant les **règles Discord** peut entraîner un **bannissement**.
 Vous êtes responsable de votre utilisation.
 
 ---
 
-👤 Développé par **o3gy**
+### 👤 Développé par **o3gy**
 > 🎮 Discord : o3gy
