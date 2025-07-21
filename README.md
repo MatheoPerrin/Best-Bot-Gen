@@ -64,6 +64,17 @@ npm start
 
 ---
 
+## 📸 Captures d'écran
+
+Aperçu de l'interface du bot :
+
+<p align="center">
+  <img src="Img/RedTiger.png" width="49%" style="border-radius: 12px; border: 1px solid #ccc; margin: 5px;"> 
+  <img src="Img/RedTiger-2.png" width="49%" style="border-radius: 12px; border: 1px solid #ccc; margin: 5px;"> 
+  <img src="Img/RedTiger-3.png" width="49%" style="border-radius: 12px; border: 1px solid #ccc; margin: 5px;"> 
+  <img src="Img/Builder.png" width="49%" style="border-radius: 12px; border: 1px solid #ccc; margin: 5px;">
+</p>
+
 ## 🔒 Disclaimer
 
 > ❗ Projet éducatif uniquement.
