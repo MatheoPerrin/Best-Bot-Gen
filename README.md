@@ -58,7 +58,7 @@ npm start
 
 `/config`     → Configuration générale
 `/create`     → Crée un service comme "Netflix"
-`/restock`    → Ajoute des comptes au service
+              `/restock`    → Ajoute des comptes au service
 `/stock`      → Vérifie le stock disponible
 
 
