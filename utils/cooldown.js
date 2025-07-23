@@ -3,9 +3,9 @@ const fs = require('fs');
 const path = require('path');
 const { ActionRowBuilder, StringSelectMenuBuilder, ButtonBuilder, ButtonStyle, ModalBuilder, TextInputBuilder, TextInputStyle, EmbedBuilder } = require('discord.js');
 
-const { formatRoleLabel } = require('./utils/deco.js');
+const { formatRoleLabel } = require('../utils/deco.js');
 
-const cooldownFile = path.join(__dirname, 'cooldowns.json');
+const cooldownFile = path.join(__dirname, '../config/cooldowns.json');
 
 function readCooldowns() { if (!fs.existsSync(cooldownFile)) return {}; return JSON.parse(fs.readFileSync(cooldownFile, 'utf8')); }
 

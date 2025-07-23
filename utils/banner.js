@@ -78,7 +78,7 @@ async function showBanner(client) {
 
   console.log(chalk.cyan('🤖  Nom : ') + chalk.white(client.user.username));
 
-  console.log(chalk.cyan('🏷️  Tag : ') + chalk.white(`${client.user.tag}`));
+  console.log(chalk.cyan('🏷️   Tag : ') + chalk.white(`${client.user.tag}`));
 
   console.log(chalk.cyan('🆔  ID : ') + chalk.white(client.user.id));
     

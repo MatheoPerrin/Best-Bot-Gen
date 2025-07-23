@@ -32,9 +32,9 @@
 
     "fs": "^0.0.1-security",
 
-    "gradient-string": "3.0.0",
+    "gradient-string": "2.0.1",
      
-    "node-fetch": "^3.3.1",
+    "node-fetch": "^2.0.0",
       
     "node-vibrant": "^4.0.3",
 

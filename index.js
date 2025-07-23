@@ -1,5 +1,12 @@
-const checkdevice = require("./checkDevice");
-checkdevice
+// Pour configurer le token du bot et id du serveur, allez sur le fichier .env et pour le reste (role,salon...), allez sur le dossier config et ensuite sur le fichier config.jsonc
+// Pour les problèmes ou autre, contactez moi depuis mon discord: o3gy
+
+(async () => {
+require('./checker/package');
+require('./checker/sharp');
+require('./checker/info');
+await require("./checker/device")();
+
 
 const {
 
@@ -49,17 +56,17 @@ const {
 
   getRemoveCooldownMenu
 
-} = require('./cooldown.js');
+} = require('./utils/cooldown.js');
 
 const fs = require('fs');
 
 const path = require('path');
 
-const { cleanInteraction, autoDelete } = require('./messageCleaner');
+const { cleanInteraction, autoDelete } = require('./utils/messageCleaner');
 
-const { showBanner } = require('./banner');
+const { showBanner } = require('./utils/banner');
 
-const { footerText } = require('./config_bot');
+const { footerText } = require('./config/config_bot');
 
 function getFooterText(interactionOrClient) {
 
@@ -81,7 +88,7 @@ function getFooterText(interactionOrClient) {
 
 const commentJson = require('comment-json');
 
-const raw = fs.readFileSync('./config.jsonc', 'utf8');
+const raw = fs.readFileSync('./config/config.jsonc', 'utf8');
 
 let config = commentJson.parse(raw);
 let currentConfig = '';
@@ -92,11 +99,14 @@ const axios = require('axios');
 
 const { Vibrant } = require('node-vibrant/node');
 
-const sharp = require('sharp');
+const { available: sharpAvailable } = require('./checker/sharp-available.json');
+const sharp = sharpAvailable ? require('sharp') : null;
+
+//const sharp = require('sharp');
 
 const emojiRegex = require('emoji-regex');
 
-function updateConfigKey(key, value, configFile = 'config.jsonc') {
+function updateConfigKey(key, value, configFile = '/config/config.jsonc') {
   const configPath = path.join(__dirname, configFile);
 
   if (!fs.existsSync(configPath)) {
@@ -108,7 +118,7 @@ function updateConfigKey(key, value, configFile = 'config.jsonc') {
   let config;
 
   try {
-    config = commentJson.parse(rawContent, null, true); // true = conserver les commentaires
+    config = commentJson.parse(rawContent, null, true);
   } catch (err) {
     console.error('❌ Erreur lors du parsing JSONC :', err);
     return;
@@ -245,7 +255,7 @@ function findBestBannerImage(images) {
 
 }
 
-const setupAntiCrash = require('./antiCrash.js');
+const setupAntiCrash = require('./utils/antiCrash.js');
 
 setupAntiCrash({
 
@@ -387,8 +397,10 @@ async function getDominantColorFromImageUrl(imageUrl) {
   try {
     const res = await axios.get(imageUrl, { responseType: 'arraybuffer' });
     const inputBuffer = Buffer.from(res.data, 'binary');
-
-    const jpegBuffer = await sharp(inputBuffer).jpeg().toBuffer();
+    let jpegBuffer = inputBuffer;
+    if(sharp) {
+    jpegBuffer = await sharp(inputBuffer).jpeg().toBuffer();
+    }
 
     const tempName = `temp-${simpleUUID()}.jpg`;
     const tempPath = path.join(__dirname, tempName);
@@ -484,7 +496,14 @@ async function cleanupUnusedEmojisSmart(client, services) {
   const guild = client.guilds.cache.first();
   if (!guild) return console.log('❌ Aucun serveur trouvé.');
 
-  const emojis = await guild.emojis.fetch();
+  let emojis;
+  try {
+    emojis = await guild.emojis.fetch({ withUser: true });
+  } catch (err) {
+    console.warn('❌ Impossible de fetch les emojis avec withUser:', err.message);
+    return;
+  }
+
   const usedImageHashes = new Set();
 
   const validEmojiNames = new Set(
@@ -497,7 +516,13 @@ async function cleanupUnusedEmojisSmart(client, services) {
   for (const [id, emoji] of emojis) {
     total++;
 
-    const emojiName = normalizeEmojiName(emoji.name || ''); // ✅ Correction ici
+    const authorId = emoji.user?.id;
+
+    if (!authorId || authorId !== client.user.id) {
+      continue;
+    }
+
+    const emojiName = normalizeEmojiName(emoji.name || '');
     const isValid = validEmojiNames.has(emojiName);
     const hash = emoji.url.split('/').pop().split('.')[0];
     const isDuplicate = usedImageHashes.has(hash);
@@ -516,7 +541,7 @@ async function cleanupUnusedEmojisSmart(client, services) {
     }
   }
 
-  console.log(`✅ Nettoyage terminé : ${removed}/${emojis.size} emojis supprimés.`);
+  console.log(`✅ Nettoyage terminé : ${removed}/${total} emojis supprimés.`);
 }
     
 async function registerCommands(services, lac, guildId) {
@@ -677,7 +702,7 @@ compteTemporaire = new Map();
 
 try {
 
-  const raw = fs.readFileSync(path.join(__dirname, 'boutons.json'), 'utf8');
+  const raw = fs.readFileSync(path.join(__dirname, '/config/boutons.json'), 'utf8');
 
   services = JSON.parse(raw).map(s => ({
 
@@ -922,7 +947,7 @@ client.once('ready', async () => {
 
   await registerCommands(services, lac);
     
-  const statutPath = path.join(__dirname, 'statut.json');
+  const statutPath = path.join(__dirname, '/config/statut.json');
 
 if (fs.existsSync(statutPath)) {
 
@@ -994,7 +1019,7 @@ async function checkUserRole(interaction) {
 
 function saveBotStatus(status, activityText, type) {
 
-  const statutPath = path.join(__dirname, 'statut.json');
+  const statutPath = path.join(__dirname, '/config/statut.json');
 
   const payload = {
 
@@ -1664,7 +1689,7 @@ if (existingEmoji) {
 
   try {
     fs.writeFileSync(
-      path.join(__dirname, 'boutons.json'),
+      path.join(__dirname, '/config/boutons.json'),
       JSON.stringify(services.map(s => ({
         id: s.id,
         label: s.label,
@@ -1867,7 +1892,7 @@ let oldFilePath = service.file;
 
   try {
     fs.writeFileSync(
-      path.join(__dirname, 'boutons.json'),
+      path.join(__dirname, '/config/boutons.json'),
       JSON.stringify(services.map(s => ({
         id: s.id,
         label: s.label,
@@ -1942,7 +1967,7 @@ const removed = services.splice(index, 1)[0];
 
 try {
   fs.writeFileSync(
-    path.join(__dirname, 'boutons.json'),
+    path.join(__dirname, '/config/boutons.json'),
     JSON.stringify(services.map(s => ({
       id: s.id,
       label: s.label,
@@ -2989,3 +3014,4 @@ if (interaction.customId === 'modal-cooldown-default') {
 });
 
 client.login(process.env.TOKEN);
+})();
