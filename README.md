@@ -33,9 +33,7 @@ npm install
 npm start
 ```
 
-> 📵 Ce projet ne fonctionne pas sur Téléphone / Termux / ARM64.
-
-ℹ️ Utilisez un VPS Linux, Node.js 16+, ou un hébergeur de bot.
+ℹ️ Node.js 16+
 
 ---
 
