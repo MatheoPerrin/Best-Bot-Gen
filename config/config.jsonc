@@ -8,7 +8,7 @@
   "STOCK_CHANNEL_ID": "", //ID Du Salon Restock
   "PANEL_CHANNEL_ID": "", //ID Du Salon Panel (Générateur de services)
   "REQUIRED_ROLE_ID": "", //ID Du rôle Requis (Par exemple ceux qui ont le rôle soutient donc avec .gg/bestgen dans leur statut par exemple
-  "banner": "", //Lien De la Bannière (.png,.jpg...) (Pas obligatoire)
+  "banner": "https://i.ibb.co/5WyLV65g/de-nombreuses-ic-nes-en-papier-avec-le-logo-des-r-seaux-sociaux-les-plus-populaires-et-applications.jpg", //Lien De la Bannière (.png,.jpg...) (Pas obligatoire)
   "modeAffichage": 1, // 1 = Boutons | 2 = Menu Déroulant
   "filtrageStock": 2 // 1 = Masquer Service Vide | 2 = Laisser
 }
