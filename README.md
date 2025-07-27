@@ -8,11 +8,9 @@
   <img src="https://img.shields.io/github/forks/o3gy/Best-Bot-Gen?color=blue&style=flat-square" alt="Forks">
   <img src="https://img.shields.io/github/languages/top/o3gy/Best-Bot-Gen?style=flat-square" alt="Langage principal">
 </p>-->
-# 🚀 Best Bot Gen
+# ⭐️ Best Bot Gen
 
 > Générateur de services performant, interactif et personnaliser.
-
----
 
 ## 🛠️ Fonctionnalités
 
@@ -21,8 +19,6 @@
 - Interface Propre
 - Plusieurs panel de intégré
 - Système anti-rate limit (90%)
-
----
 
 ## 🚀 Installation rapide
 
@@ -33,7 +29,7 @@ npm install
 npm start
 ```
 
-ℹ️ Node.js 16+
+ℹ️ Node.js 18+
 
 ---
 
